@@ -87,7 +87,20 @@ ZiCAD 是基于 [CADCraft](https://github.com/storytold/cadcraft) 二次开发�
 | 温度与工具轮数 | 调整回答采样和命令执行续轮上限 |
 | 自动执行与附加提示词 | 设置执行确认方式，补充任务约束 |
 
-预设包括 OpenAI、DeepSeek、智谱 GLM、Kimi、通义千问、豆包、硅基流动和 OpenRouter；实际模型可用性取决于接口与账号。网页通过配套本地服务同源转发请求。
+预设包括 OpenAI、DeepSeek、智谱 GLM、Kimi、通义千问、豆包、硅基流动和 OpenRouter。海外模型可直接在下拉列表选择：
+
+| 模型系列 | 预设示例 | 选择平台 |
+|---|---|---|
+| GPT | GPT-6.1 Sol、GPT-6 Astra / Sol / Luna、GPT-5.6 Sol、GPT-4.1 | OpenAI，或 OpenRouter |
+| Claude | Sonnet 5.5、Opus 5.5、Haiku 5.5、Fable 5.1 | OpenRouter |
+| Gemini | Gemini 4 Argon、Gemini 3.8 Flash | OpenRouter |
+| Grok | Grok 4.7 | OpenRouter |
+
+![海外模型预设下拉列表](docs/images/zicad-overseas-presets-live.png)
+
+这里的预设是模型名称与接口配置，不包含模型权重或调用额度。Claude / Gemini / Grok 使用 OpenRouter API Key；不是直接使用厂商原生 Key。网页通过配套本地服务同源转发请求，可用性取决于服务商与账号权限，也可点击“拉取列表”更新目录。
+
+模型参考：[OpenAI 官方模型目录](https://developers.openai.com/api/docs/models) · [OpenRouter 模型目录](https://openrouter.ai/models)。
 
 ### AI：让描述进入绘图流程
 

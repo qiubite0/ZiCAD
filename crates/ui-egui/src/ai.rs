@@ -28,7 +28,13 @@ pub struct Preset {
 
 pub const PLATFORMS: &[Preset] = &[
     Preset { name: "本地 Ollama", base_url: "http://127.0.0.1:11434/v1", model: "qwen3:14b", models: &["qwen3:14b"], local: true },
-    Preset { name: "OpenAI", base_url: "https://api.openai.com/v1", model: "gpt-5.6", models: &["gpt-5.6", "gpt-5", "gpt-5-mini"], local: false },
+    Preset {
+        name: "OpenAI",
+        base_url: "https://api.openai.com/v1",
+        model: "gpt-6.1-sol",
+        models: &["gpt-6.1-sol", "gpt-6-astra", "gpt-6-sol", "gpt-6-luna", "gpt-5.6-sol", "gpt-5-mini", "gpt-4.1", "gpt-4.1-mini"],
+        local: false,
+    },
     Preset {
         name: "DeepSeek 深度求索",
         base_url: "https://api.deepseek.com/v1",
@@ -74,8 +80,12 @@ pub const PLATFORMS: &[Preset] = &[
     Preset {
         name: "OpenRouter",
         base_url: "https://openrouter.ai/api/v1",
-        model: "openai/gpt-5.6",
-        models: &["openai/gpt-5.6", "zai-org/glm-5.3"],
+        model: "openai/gpt-6.1-sol",
+        models: &[
+            "openai/gpt-6.1-sol", "openai/gpt-6-astra", "openai/gpt-6-luna", "openai/gpt-5.6-sol",
+            "anthropic/claude-sonnet-5.5", "anthropic/claude-opus-5.5", "anthropic/claude-haiku-5.5", "anthropic/claude-fable-5.1",
+            "google/gemini-4-argon", "google/gemini-3.8-flash", "x-ai/grok-4.7", "zai-org/glm-5.3",
+        ],
         local: false,
     },
 ];
@@ -497,6 +507,7 @@ fn settings_dialog(app: &mut CadApp, ctx: &egui::Context) {
                     egui::Color32::from_rgb(0xe0, 0x60, 0x50)
                 }));
             }
+            ui.small("GPT 选择 OpenAI；Claude / Gemini / Grok 选择 OpenRouter，并使用 OpenRouter API Key。");
             ui.add_space(4.0);
             ui.strong(crate::tl!("高级"));
             ui.horizontal(|ui| {

@@ -81,3 +81,7 @@ Generated-in-code assets are original and have no file to list:
 | `docs/images/zicad-ai-chat.png` | ZiCAD 二次开发贡献者 | 本地 ZiCAD 页面与合成演示图截图 | MIT OR Apache-2.0 | 不含个人 Key；AI/导出截图在菜单品牌统一前录制 |
 | `docs/images/zicad-dwg-export.png` | ZiCAD 二次开发贡献者 | 本地 ZiCAD 页面与合成演示图截图 | MIT OR Apache-2.0 | 不含个人 Key；AI/导出截图在菜单品牌统一前录制 |
 | `docs/images/zicad-batch-print.png` | ZiCAD 二次开发贡献者 | 本地批量打印面板与合成演示图截图 | MIT OR Apache-2.0 | 已验证单图框 PDF 下载；不含私人图纸或凭据 |
+
+| `docs/images/zicad-wordmark.png` | ZiCAD 二次开发贡献者（AI 辅助设计） | 用户选定的第 9 款字标 | MIT OR Apache-2.0 | ZiCAD 品牌字标 |
+| `docs/images/zicad-cleanroom-live.png` | ZiCAD 二次开发贡献者 | 本地网页实际截图 | MIT OR Apache-2.0 | 使用合成洁净室演示图 |
+| `examples/cleanroom-demo.dxf` | ZiCAD 二次开发贡献者 | `tools/generate_cleanroom_demo.py` | MIT OR Apache-2.0 | 原创示意图，英文标注 |

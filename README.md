@@ -1,4 +1,4 @@
-<img src="assets/app-icon/cadcraft-256.png" width="72" alt="ZiCAD 应用图标">
+<img src="docs/images/zicad-wordmark.png" width="360" alt="ZiCAD">
 
 # ZiCAD（志绘）
 
@@ -11,7 +11,7 @@ ZiCAD 是基于 [CADCraft](https://github.com/storytold/cadcraft) 二次开发�
 
 ## 项目全景
 
-![ZiCAD 界面展示](docs/images/zicad-unified-showcase.png)
+![ZiCAD 网页实际运行截图：洁净室演示](docs/images/zicad-cleanroom-live.png)
 
 ### 从工业场景理解项目定位
 

@@ -11,7 +11,7 @@
   <a href="docs/mcp.md">MCP 文档</a>
 </p>
 
-ZiCAD 是基于 [CADCraft](https://github.com/storytold/cadcraft) 二次开发的开源二维 CAD。以浏览器为绘图入口，将中文交互、AI 命令辅助、图框识别、批量 PDF、图纸目录及本地 DXF → DWG 导出串联起来，面向看图、改图和工程交付。
+ZiCAD 是面向工程绘图与交付的开源二维 CAD。以浏览器为绘图入口，将中文交互、AI 命令辅助、图框识别、批量 PDF、图纸目录及本地 DXF → DWG 导出串联起来，面向看图、改图和工程交付。
 
 **打开 DXF → 查看与修改 → AI / 命令辅助 → 图框与目录 → PDF / DWG 交付**
 

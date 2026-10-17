@@ -89,3 +89,5 @@ Generated-in-code assets are original and have no file to list:
 | `docs/images/zicad-commercial-live.png` | ZiCAD 二次开发贡献者 | 本地网页实际截图 | MIT OR Apache-2.0 | 商业综合体演示 |
 | `examples/cleanroom-pro-demo.dxf`、`apps/cadcraft-web/dev-host/cleanroom-pro-demo.dxf` | ZiCAD 二次开发贡献者 | `tools/generate_cleanroom_pro_demo.py` 原创生成 | MIT OR Apache-2.0 | 洁净室工艺与机电协调示意 |
 | `docs/images/zicad-cleanroom-pro-live.png` | ZiCAD 二次开发贡献者 | 本地 ZiCAD 网页实际截图 | MIT OR Apache-2.0 | 使用原创合成演示图 |
+| `docs/images/zicad-cleanroom-ai-live.png`、`zicad-cleanroom-pdf-live.png`、`zicad-cleanroom-dwg-live.png`、`zicad-cleanroom-export-result.png` | ZiCAD 二次开发贡献者 | 本地网页实际 AI 与出图操作截图 | MIT OR Apache-2.0 | 使用原创合成图纸 |
+| `docs/demo/cleanroom-pro-demo.dwg` | ZiCAD 二次开发贡献者 | 本地转换服务由洁净室 DXF 导出 | MIT OR Apache-2.0 | 2018 版，600 实体读回验证 |

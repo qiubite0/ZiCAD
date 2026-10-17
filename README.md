@@ -84,7 +84,9 @@ ZiCAD 是基于 [CADCraft](https://github.com/storytold/cadcraft) 二次开发�
 
 对话、必要图纸上下文和附件会发送至所配置的模型服务，API Key 保存在浏览器本机设置中。模型与命令执行结果应按任务复核。
 
-[查看 AI 对话界面](docs/images/zicad-ai-chat.png)
+![洁净室 AI 实际问答演示](docs/images/zicad-cleanroom-ai-live.png)
+
+**实测演示**：向已配置的 DeepSeek 提问，要求用四行说明 SA、RA、EXHAUST、PROCESS 图层用途。截图展示实际返回内容，此轮未执行图纸修改。
 
 ### 出图：从图框到 PDF 与目录
 
@@ -92,7 +94,9 @@ ZiCAD 是基于 [CADCraft](https://github.com/storytold/cadcraft) 二次开发�
 
 图框识别依据闭合轮廓尺寸和文字位置等规则，复杂块图签与异形图框仍需手动调整。
 
-[查看批量打印面板](docs/images/zicad-batch-print.png)
+![洁净室图框识别与 PDF 导出](docs/images/zicad-cleanroom-pdf-live.png)
+
+**实测演示**：识别洁净室底图的闭合外框，选中后导出单页 PDF。图框与图签字段仍需复核；多图框图纸可勾选多页合并输出。
 
 ### DWG：连接编辑与工程交付
 
@@ -100,7 +104,11 @@ ZiCAD 是基于 [CADCraft](https://github.com/storytold/cadcraft) 二次开发�
 
 转换使用本地 Rust DWG 桥接与 `cadcraft-cli`，接口限制为 64 MiB 输入、两个并发任务和 120 秒超时，任务结束清理临时文件。详细配置见 [DWG 导出文档](docs/dwg-export.md)。
 
-[查看 DWG 导出入口](docs/images/zicad-dwg-export.png)
+![洁净室 DWG 实际导出结果](docs/images/zicad-cleanroom-export-result.png)
+
+**实测演示**：从网页导出洁净室 DWG；同一转换服务生成的 2018 示例文件已读回验证，共 600 个实体、跳过记录为 0。
+
+[下载 DWG 导出示例](docs/demo/cleanroom-pro-demo.dwg) · [查看对应 DXF](examples/cleanroom-pro-demo.dxf) · [查看导出菜单截图](docs/images/zicad-cleanroom-dwg-live.png)
 
 ### MCP：连接外部 AI 客户端
 

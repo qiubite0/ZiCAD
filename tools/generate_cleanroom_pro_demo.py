@@ -53,7 +53,8 @@ def generate(destination):
             for sign in [-1,1]:
                 ln(b,(b[0]-450*ux+sign*180*uy,b[1]-450*uy-sign*180*ux),layer)
 
-    box(-2500,-4500,45500,31500)
+    m.add_lwpolyline([(-2500,-4500),(43000,-4500),(43000,27000),(-2500,27000)],
+                     close=True, dxfattribs={"layer":"WALL"})
     box(0,0,32000,24000)
     box(150,150,31700,23700)
     # North service suite and production frontages with actual door gaps.

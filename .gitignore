@@ -1,0 +1,21 @@
+*~
+/target
+/plan/
+/plans/
+/dist/
+/log/
+/temp/
+.DS_Store
+*.swp
+/apps/cadcraft-web/dist/
+/.claude/worktrees/
+
+# Local credentials, Python cache and publish artifacts
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+*.log
+/release/
+/publish/

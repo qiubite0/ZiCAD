@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>ZiCAD</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  iframe { border: 0; width: 100%; height: 100%; }
+  #log { position: fixed; left: 8px; bottom: 8px; background: #000a; color: #7f7;
+         font: 12px monospace; padding: 4px 8px; border-radius: 4px; z-index: 9; }
+</style>
+</head>
+<body>
+<iframe id="cad" src="index.html?host=parent"></iframe>
+<div id="log">ZiCAD 正在启动…</div>
+<script>
+  const log = document.getElementById('log');
+  const iframe = document.getElementById('cad');
+  window.addEventListener('message', async (ev) => {
+    const d = ev.data || {};
+    if (d.type === 'cadcraft:ready') {
+      const file = new URLSearchParams(location.search).get('file') || 'apartment.dxf';
+      log.textContent = 'ZiCAD v' + d.version + ' — sending ' + file;
+      const resp = await fetch(file);
+      if (!resp.ok) { log.textContent = 'fetch failed: ' + resp.status; return; }
+      const bytes = await resp.arrayBuffer();
+      iframe.contentWindow.postMessage(
+        { type: 'cadcraft:open', name: file, bytes },
+        window.location.origin
+      );
+      log.textContent = 'sent ' + file + ' (' + bytes.byteLength + ' bytes)';
+    } else if (d.type === 'cadcraft:dirty') {
+      log.textContent = 'dirty=' + d.dirty;
+    } else if (d.type === 'cadcraft:save') {
+      // 文件交付（保存/批量打印 PDF 等）：宿主侧触发浏览器下载
+      const blob = new Blob([d.bytes], { type: 'application/octet-stream' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = d.name || 'drawing.dxf';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+      log.textContent = 'received ' + d.name + ' (' + d.bytes.byteLength + ' bytes)';
+    } else if (d.type === 'cadcraft:failed') {
+      log.textContent = 'FAILED: ' + d.error;
+    }
+  });
+</script>
+</body>
+</html>

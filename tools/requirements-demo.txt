@@ -1,0 +1,2 @@
+# Only needed for the optional synthetic MEP drawing generator.
+ezdxf>=1.4,<2

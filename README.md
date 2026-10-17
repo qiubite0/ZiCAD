@@ -3,6 +3,7 @@
 <h1 align="center">ZiCAD · 志绘</h1>
 <p align="center"><strong>轻量二维 CAD · AI 辅助 · 工程出图</strong></p>
 <p align="center">
+  <a href="#ai-辅助与模型接入">AI 辅助</a> ·
   <a href="#工程案例">工程案例</a> ·
   <a href="#核心功能">核心功能</a> ·
   <a href="#技术架构">技术架构</a> ·
@@ -13,6 +14,52 @@
 ZiCAD 是基于 [CADCraft](https://github.com/storytold/cadcraft) 二次开发的开源二维 CAD。以浏览器为绘图入口，将中文交互、AI 命令辅助、图框识别、批量 PDF、图纸目录及本地 DXF → DWG 导出串联起来，面向看图、改图和工程交付。
 
 **打开 DXF → 查看与修改 → AI / 命令辅助 → 图框与目录 → PDF / DWG 交付**
+
+## AI 辅助与模型接入
+
+### 大模型接口配置
+
+![大模型接口设置与连接测试](docs/images/zicad-model-settings-live.png)
+
+在 **AI → Settings** 中选择平台，填写同一服务商的接口端点、API Key 与模型名称，再点击“测试连接”或“拉取列表”。上图为 DeepSeek 实际连接测试，密钥以遮蔽形式显示。
+
+| 配置 | 用途 |
+|---|---|
+| AI 平台与端点 | 支持预设平台和自定义 OpenAI 兼容地址，也可接入本地 Ollama |
+| API Key | 按平台分别保存；切换厂商时需使用对应凭据 |
+| 模型 | 从预设或接口返回的列表选择，图像附件需使用视觉模型 |
+| 温度与工具轮数 | 调整回答采样和命令执行续轮上限 |
+| 自动执行与附加提示词 | 设置执行确认方式，补充任务约束 |
+
+预设包括 OpenAI、DeepSeek、智谱 GLM、Kimi、通义千问、豆包、硅基流动和 OpenRouter。海外模型可直接在下拉列表选择：
+
+| 模型系列 | 预设示例 | 选择平台 |
+|---|---|---|
+| GPT | GPT-6.1 Sol、GPT-6 Astra / Sol / Luna、GPT-5.6 Sol、GPT-4.1 | OpenAI，或 OpenRouter |
+| Claude | Sonnet 5.5、Opus 5.5、Haiku 5.5、Fable 5.1 | OpenRouter |
+| Gemini | Gemini 4 Argon、Gemini 3.8 Flash | OpenRouter |
+| Grok | Grok 4.7 | OpenRouter |
+
+![海外模型预设下拉列表](docs/images/zicad-overseas-presets-live.png)
+
+这里的预设是模型名称与接口配置，不包含模型权重或调用额度。Claude / Gemini / Grok 使用 OpenRouter API Key；不是直接使用厂商原生 Key。网页通过配套本地服务同源转发请求，可用性取决于服务商与账号权限，也可点击“拉取列表”更新目录。
+
+模型参考：[OpenAI 官方模型目录](https://developers.openai.com/api/docs/models) · [OpenRouter 模型目录](https://openrouter.ai/models)。
+
+### AI：让描述进入绘图流程
+
+**描述需求 → 生成命令 → 执行 → 返回结果 → 继续或总结。**
+
+- 支持 OpenAI 兼容端点、自定义模型、API Key、温度与最大续轮数配置。
+- 最多附加四张图片，供支持视觉输入的模型使用。
+- 支持自动执行或确认后执行，可停止等待；使用 **Ctrl+Enter** 发送。
+- AI 面板入口位于“帮助”右侧，可通过标题栏拖动。
+
+对话、必要图纸上下文和附件会发送至所配置的模型服务，API Key 保存在浏览器本机设置中。模型与命令执行结果应按任务复核。
+
+![洁净室 AI 实际问答演示](docs/images/zicad-cleanroom-ai-live.png)
+
+**实测演示**：向已配置的 DeepSeek 提问，要求用四行说明 SA、RA、EXHAUST、PROCESS 图层用途。截图展示实际返回内容，此轮未执行图纸修改。
 
 ## 工程案例
 
@@ -70,58 +117,6 @@ ZiCAD 是基于 [CADCraft](https://github.com/storytold/cadcraft) 二次开发�
 | DWG 交付 | 将当前 DXF 图纸通过本地转换服务导出为指定 DWG 版本 |
 | MCP 自动化 | 保留并适配上游 MCP 服务，对外提供查询、绘图、脚本和导出工具 |
 | 中文与网页交互 | 简繁中文界面、可拖动 AI 面板、帮助菜单右侧入口及网页宿主集成 |
-
-### 大模型接口配置
-
-![大模型接口设置与连接测试](docs/images/zicad-model-settings-live.png)
-
-在 **AI → Settings** 中选择平台，填写同一服务商的接口端点、API Key 与模型名称，再点击“测试连接”或“拉取列表”。上图为 DeepSeek 实际连接测试，密钥以遮蔽形式显示。
-
-| 配置 | 用途 |
-|---|---|
-| AI 平台与端点 | 支持预设平台和自定义 OpenAI 兼容地址，也可接入本地 Ollama |
-| API Key | 按平台分别保存；切换厂商时需使用对应凭据 |
-| 模型 | 从预设或接口返回的列表选择，图像附件需使用视觉模型 |
-| 温度与工具轮数 | 调整回答采样和命令执行续轮上限 |
-| 自动执行与附加提示词 | 设置执行确认方式，补充任务约束 |
-
-预设包括 OpenAI、DeepSeek、智谱 GLM、Kimi、通义千问、豆包、硅基流动和 OpenRouter。海外模型可直接在下拉列表选择：
-
-| 模型系列 | 预设示例 | 选择平台 |
-|---|---|---|
-| GPT | GPT-6.1 Sol、GPT-6 Astra / Sol / Luna、GPT-5.6 Sol、GPT-4.1 | OpenAI，或 OpenRouter |
-| Claude | Sonnet 5.5、Opus 5.5、Haiku 5.5、Fable 5.1 | OpenRouter |
-| Gemini | Gemini 4 Argon、Gemini 3.8 Flash | OpenRouter |
-| Grok | Grok 4.7 | OpenRouter |
-
-![海外模型预设下拉列表](docs/images/zicad-overseas-presets-live.png)
-
-这里的预设是模型名称与接口配置，不包含模型权重或调用额度。Claude / Gemini / Grok 使用 OpenRouter API Key；不是直接使用厂商原生 Key。网页通过配套本地服务同源转发请求，可用性取决于服务商与账号权限，也可点击“拉取列表”更新目录。
-
-模型参考：[OpenAI 官方模型目录](https://developers.openai.com/api/docs/models) · [OpenRouter 模型目录](https://openrouter.ai/models)。
-
-### AI：让描述进入绘图流程
-
-**描述需求 → 生成命令 → 执行 → 返回结果 → 继续或总结。**
-
-- 支持 OpenAI 兼容端点、自定义模型、API Key、温度与最大续轮数配置。
-- 最多附加四张图片，供支持视觉输入的模型使用。
-- 支持自动执行或确认后执行，可停止等待；使用 **Ctrl+Enter** 发送。
-- AI 面板入口位于“帮助”右侧，可通过标题栏拖动。
-
-对话、必要图纸上下文和附件会发送至所配置的模型服务，API Key 保存在浏览器本机设置中。模型与命令执行结果应按任务复核。
-
-![洁净室 AI 实际问答演示](docs/images/zicad-cleanroom-ai-live.png)
-
-**实测演示**：向已配置的 DeepSeek 提问，要求用四行说明 SA、RA、EXHAUST、PROCESS 图层用途。截图展示实际返回内容，此轮未执行图纸修改。
-
-### 文字与工程标注
-
-![实际图纸文字与设备标识细节](docs/images/zicad-text-detail-live.png)
-
-支持单行与多行文字，以及线性、对齐、半径、直径和角度等标注命令。文字可用于房间名称、设备编号、管线规格、图例与图纸目录，并随图纸参与 PDF / DWG 输出。基础文字与标注能力来自上游绘图核心。
-
-当前案例可查看 `FFU-14`、设备编号、`N2 DN20`、`CDA DN25` 和 `PCW DN40` 等实际文字。中文操作界面已接入，图纸正文的中文字形显示仍在完善；这组演示使用英文标注。
 
 ### 出图：从图框到 PDF 与目录
 

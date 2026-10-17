@@ -218,5 +218,3 @@ python tools/test_dwg_conversion.py
 ## 功能配图
 
 ![ZiCAD 工程绘图工作台展示](docs/images/zicad-engineering-showcase.png)
-
-

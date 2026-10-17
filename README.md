@@ -13,6 +13,18 @@ ZiCAD 是基于 [CADCraft](https://github.com/storytold/cadcraft) 二次开发�
 
 ![ZiCAD 网页实际运行截图：洁净室演示](docs/images/zicad-cleanroom-live.png)
 
+### 商业综合体底图案例
+
+![商业综合体底图实际网页截图](docs/images/zicad-commercial-live.png)
+
+96×64 米的商业二层平面示意，包含 20 间商铺、4 个主力店区、中央中庭、两组扶梯、四角楼梯、电梯、卫生间及后勤走道。墙体、玻璃、柱网、核心筒、家具和标注独立分层，可用于看图、编辑、图层管理和出图演示。
+
+- [下载 DXF 底图](examples/commercial-complex-demo.dxf)
+- [示例生成脚本](tools/generate_commercial_demo.py)（依赖 `ezdxf`）
+- 本地服务启动后打开：`http://127.0.0.1:8771/host.html?file=commercial-complex-demo.dxf`
+
+本案例为原创合成演示底图，采用英文图纸标注；项目实际设计需另行深化。
+
 ### 从工业场景理解项目定位
 
 以洁净生产区、更衣缓冲区、物料缓冲区及送回风、工艺管线为例，工程人员需要反复查看平面图、修改对象与文字、整理图层和图签，最后输出可交付图纸。ZiCAD 围绕这些二维绘图任务，将中文交互、AI 命令辅助和工程出图组织到同一工作流中。

@@ -85,3 +85,5 @@ Generated-in-code assets are original and have no file to list:
 | `docs/images/zicad-wordmark.png` | ZiCAD 二次开发贡献者（AI 辅助设计） | 用户选定的第 9 款字标 | MIT OR Apache-2.0 | ZiCAD 品牌字标 |
 | `docs/images/zicad-cleanroom-live.png` | ZiCAD 二次开发贡献者 | 本地网页实际截图 | MIT OR Apache-2.0 | 使用合成洁净室演示图 |
 | `examples/cleanroom-demo.dxf` | ZiCAD 二次开发贡献者 | `tools/generate_cleanroom_demo.py` | MIT OR Apache-2.0 | 原创示意图，英文标注 |
+| `examples/commercial-complex-demo.dxf`、`apps/cadcraft-web/dev-host/commercial-complex-demo.dxf` | ZiCAD 二次开发贡献者 | `tools/generate_commercial_demo.py` 原创生成 | MIT OR Apache-2.0 | 商业综合体合成底图 |
+| `docs/images/zicad-commercial-live.png` | ZiCAD 二次开发贡献者 | 本地网页实际截图 | MIT OR Apache-2.0 | 商业综合体演示 |

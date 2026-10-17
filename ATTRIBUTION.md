@@ -94,3 +94,4 @@ Generated-in-code assets are original and have no file to list:
 | `docs/images/zicad-model-settings-live.png` | ZiCAD 二次开发贡献者 | 本地接口连接测试实际截图 | MIT OR Apache-2.0 | 密钥已遮蔽 |
 | `docs/images/zicad-text-detail-live.png` | ZiCAD 二次开发贡献者 | 本地洁净室图纸文字细节实际截图 | MIT OR Apache-2.0 | 原创合成图纸 |
 | `docs/images/zicad-overseas-presets-live.png` | ZiCAD 二次开发贡献者 | 本地海外模型预设菜单实际截图 | MIT OR Apache-2.0 | 不含 API Key |
+| `docs/images/zicad-hero.png` | ZiCAD 二次开发贡献者（AI 辅助设计） | 基于用户选定字标与封面风格生成 | MIT OR Apache-2.0 | 工业洁净室概念场景封面 |

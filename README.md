@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="docs/images/zicad-wordmark.png" width="420" alt="ZiCAD">
-</p>
+![ZiCAD：让绘图走向智能](docs/images/zicad-hero.png)
 
 <h1 align="center">ZiCAD · 志绘</h1>
 <p align="center"><strong>轻量二维 CAD · AI 辅助 · 工程出图</strong></p>

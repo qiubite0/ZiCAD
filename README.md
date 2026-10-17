@@ -11,7 +11,13 @@ ZiCAD 是基于 [CADCraft](https://github.com/storytold/cadcraft) 二次开发�
 
 ## 项目全景
 
-![ZiCAD 网页实际运行截图：洁净室演示](docs/images/zicad-cleanroom-live.png)
+![ZiCAD 网页实际运行截图：洁净室工艺与机电综合](docs/images/zicad-cleanroom-pro-live.png)
+
+洁净室深化案例包含初更、二更、风淋、物料气闸、生产单元、受控走廊及辅助房间，叠加 12 个 FFU、12 台设备、送回风、局部排风、工艺介质与桥架，并区分人流、物流。
+
+[下载深化 DXF](examples/cleanroom-pro-demo.dxf) · [生成脚本](tools/generate_cleanroom_pro_demo.py)
+
+本地打开：`http://127.0.0.1:8771/host.html?file=cleanroom-pro-demo.dxf`。本案例为工程协调示意，未设定洁净等级；风量、压差和检修条件需按实际项目设计。
 
 ### 商业综合体底图案例
 

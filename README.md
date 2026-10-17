@@ -1,3 +1,5 @@
+<img src="assets/app-icon/cadcraft-256.png" width="72" alt="ZiCAD 应用图标">
+
 # ZiCAD（志绘）
 
 **Lightweight CAD. Intelligent Workflow. Open by Design.**
@@ -7,9 +9,9 @@ ZiCAD 是基于 [CADCraft](https://github.com/storytold/cadcraft) 二次开发�
 
 > 当前是本地可运行的开发版本，尚未上线公共云服务。基础几何、编辑器核心、原生 DWG 桥接和 MCP 底层来自上游；本文明确区分继承能力、二开增量和未来规划。
 
-## 项目全景：以工业洁净室为场景
+## 项目全景
 
-![ZiCAD 工业洁净室场景与功能架构概览](docs/images/zicad-cleanroom-overview.png)
+![ZiCAD 界面展示](docs/images/zicad-unified-showcase.png)
 
 ### 从工业场景理解项目定位
 
@@ -65,7 +67,7 @@ ZiCAD 是基于 [CADCraft](https://github.com/storytold/cadcraft) 二次开发�
 
 ### AI：从聊天走向可执行的绘图辅助
 
-![AI 辅助绘图流程](docs/images/zicad-ai-workflow.png)
+[查看 AI 对话原始界面](docs/images/zicad-ai-chat.png)
 
 AI 助手接收用户的绘图或修改描述，并结合当前图纸的基本信息组织请求。模型按照约定返回命令时，ZiCAD 将命令交给 CAD 命令系统执行，再把成功或失败结果反馈给模型，形成：
 
@@ -84,7 +86,7 @@ AI 助手接收用户的绘图或修改描述，并结合当前图纸的基本�
 
 ### 打印：按图框组织工程出图
 
-![批量出图与图纸目录](docs/images/zicad-batch-output-workflow.png)
+[查看批量出图原始界面](docs/images/zicad-batch-print.png)
 
 新增工程出图模块，面向同一模型空间包含多个图框的场景。它先识别候选图框与图签文字，再由用户选择需要处理的图纸。
 
@@ -96,7 +98,7 @@ AI 助手接收用户的绘图或修改描述，并结合当前图纸的基本�
 
 ### DWG：连接网页编辑与工程交付
 
-![DXF 到 DWG 工程交付](docs/images/zicad-dwg-delivery-workflow.png)
+[查看 DWG 导出原始界面](docs/images/zicad-dwg-export.png)
 
 打开 DXF 后，点击 **文件 → 导出 DWG…** 下载当前图纸。支持 2000、2004、2007、2010、2013、2018 目标版本，取值来自“默认保存版本”。
 
@@ -220,7 +222,3 @@ python tools/test_dwg_conversion.py
 - [DWG 导出](docs/dwg-export.md)
 - [素材清单](ATTRIBUTION.md)、[版权与依赖说明](NOTICE)
 - [MIT](LICENSE-MIT) / [Apache-2.0](LICENSE-APACHE)
-
-## 功能配图
-
-![ZiCAD 工程绘图工作台展示](docs/images/zicad-engineering-showcase.png)

@@ -111,6 +111,7 @@ const MAX_CACHED_CHARS: usize = 50_000;
 /// Fonts known to cover many scripts (CJK first), tried first for missing glyphs. Matched as
 /// substrings of the normalised file stem.
 const PREFERRED_FALLBACK: &[&str] = &[
+    "lxgwwenkai",
     "notosanscjk",
     "sourcehansans",
     "notoserifcjk",

@@ -1171,3 +1171,6 @@
 	执行	執行
 	Stopped.	已停止。
 	接口地址、API Key、模型必须是同一家的；换厂商要连 Key 和模型一起换，否则会报 401。看图需求请选视觉模型（如 glm-5v-turbo）。	介面位址、API Key、模型必須是同一家的；換廠商要連 Key 和模型一起換，否則會報 401。看圖需求請選視覺模型（如 glm-5v-turbo）。
+
+	Change Properties	變更屬性
+	Set ByLayer	屬性隨層

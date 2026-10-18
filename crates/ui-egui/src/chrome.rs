@@ -48,15 +48,20 @@ const MAC_TITLE_BAR: f32 = 28.0;
 /// The traffic lights as AppKit lays them out: button diameter, centre-to-centre pitch and the
 /// first button's left edge (8–10 pt depending on the macOS version; the larger value keeps the
 /// gap after them from shrinking).
+#[cfg(test)]
 const MAC_LIGHT: f32 = 12.0;
+#[cfg(test)]
 const MAC_LIGHT_PITCH: f32 = 20.0;
+#[cfg(test)]
 const MAC_LIGHTS_LEFT: f32 = 10.0;
 /// Where title-row content may start to the right of the traffic lights: the end of the three
 /// lights plus the same gap the lights keep from the top of the window.
+#[cfg(test)]
 const MAC_CONTENT_LEFT: f32 = MAC_LIGHTS_LEFT + 2.0 * MAC_LIGHT_PITCH + MAC_LIGHT + (MAC_TITLE_BAR - MAC_LIGHT) / 2.0;
 
 /// Left edge of the window title in a title row starting at `left`, `width` wide: centred, but
 /// never under the traffic lights (a long drawing name in a narrow window slides right instead).
+#[cfg(test)]
 fn title_left(left: f32, width: f32, text_w: f32) -> f32 {
     (left + (width - text_w) / 2.0).max(left + MAC_CONTENT_LEFT)
 }
@@ -69,29 +74,11 @@ pub fn title_and_toolbar(app: &mut CadApp, ui: &mut egui::Ui) {
     egui::Panel::top("cc_title_toolbar").exact_size(title_h + tb_h).frame(egui::Frame::NONE.fill(t.chrome)).show(ui, |ui| {
         let r = ui.max_rect();
         if title_h > 0.0 {
-            let title = match app.session.state() {
-                Ok(st) if !app.ui.start_tab => format!("ZiCAD      {}{}", st.title, if st.title.contains('.') { "" } else { ".dwg" }),
-                _ => format!("ZiCAD      {}", crate::tl!("Start")),
-            };
-            // Centred on the traffic lights' centre line (the row's middle): with the system font
-            // the capitals' middle is the text box's middle, so no optical nudge.
-            let galley = ui.painter().layout_no_wrap(title, egui::FontId::proportional(13.0), t.text_dim);
-            let x = title_left(r.left(), r.width(), galley.size().x);
-            ui.painter().galley(pos2(x, r.top() + (title_h - galley.size().y) / 2.0), galley, t.text_dim);
-            // Allow dragging the window by the title row.
-            let tr = Rect::from_min_size(r.min, vec2(r.width(), title_h));
-            let resp = ui.interact(tr, ui.id().with("titledrag"), Sense::CLICK | Sense::DRAG);
-            if resp.drag_started() {
-                ui.ctx().send_viewport_cmd(egui::ViewportCommand::StartDrag);
-            }
-            if resp.double_clicked() {
-                let max = ui.ctx().input(|i| i.viewport().maximized.unwrap_or(false));
-                ui.ctx().send_viewport_cmd(egui::ViewportCommand::Maximized(!max));
-            }
+            crate::brand::titlebar(app, ui, r, title_h);
         }
         if tb_h > 0.0 {
             let row = Rect::from_min_size(pos2(r.left(), r.top() + title_h), vec2(r.width(), tb_h));
-            let mut x = r.left() + if app.integrated_titlebar { 120.0 } else { 12.0 };
+            let mut x = r.left() + if app.integrated_titlebar { if ui.ctx().os().is_mac() { 120.0 } else { 80.0 } } else { 12.0 };
             let size = 26.0;
             let mut clicked = None;
             let mac = ui.ctx().os().is_mac();
@@ -99,7 +86,7 @@ pub fn title_and_toolbar(app: &mut CadApp, ui: &mut egui::Ui) {
             let available = (row.right() - 12.0 - x).max(0.0);
             let Some(fit) = craft_ui::layout::fit_toolbar(&widths, available, 24.0, 30.0) else {
                 // Very small windows still expose the complete command row by scrolling.
-                ui.scope_builder(egui::UiBuilder::new().max_rect(row.shrink2(vec2(4.0, 0.0))), |ui| {
+                ui.scope_builder(egui::UiBuilder::new().max_rect(Rect::from_min_max(pos2(x, row.top()), row.max)), |ui| {
                     egui::ScrollArea::horizontal().id_salt("toolbar_small").show(ui, |ui| {
                         ui.horizontal(|ui| {
                             for group in TOOLBAR {

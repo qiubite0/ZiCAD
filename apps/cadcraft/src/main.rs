@@ -265,6 +265,7 @@ fn main() -> eframe::Result {
         wgpu_options: eframe::egui_wgpu::WgpuConfiguration::default().with_surface_config(surface),
         viewport: egui::ViewportBuilder::default()
             .with_title("ZiCAD")
+            .with_decorations(!cfg!(target_os = "windows"))
             .with_inner_size([1600.0, 1000.0])
             .with_min_inner_size([900.0, 560.0])
             .with_drag_and_drop(true)
@@ -339,7 +340,7 @@ fn main() -> eframe::Result {
                 }
                 app.session.set_lisp_support_dir(Some(support));
             }
-            app.integrated_titlebar = cfg!(target_os = "macos");
+            app.integrated_titlebar = cfg!(any(target_os = "macos", target_os = "windows"));
             if surface.present_mode == eframe::wgpu::PresentMode::AutoNoVsync {
                 app.frame_cap = Some(cadcraft_ui_egui::gpu::FrameCap::new(240));
             }

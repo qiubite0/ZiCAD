@@ -23,6 +23,20 @@ fn main() {
             Err(e) => println!("cargo::warning=building without craft-fonts: CRAFT_FONTS_DIR={}: {e}", dir.display()),
         }
     }
+    println!("cargo::rerun-if-env-changed=ZICAD_CJK_FONT");
+    if let Some(path) = std::env::var_os("ZICAD_CJK_FONT").map(PathBuf::from) {
+        match path.canonicalize() {
+            Ok(path) => {
+                println!("cargo::rerun-if-changed={}", path.display());
+                let _ = writeln!(
+                    src,
+                    "CraftFont {{ family: \"LXGW WenKai\", style: \"Regular\", scripts: &[\"Hans\", \"Hant\"], bytes: include_bytes!({:?}) }},",
+                    path.display().to_string()
+                );
+            }
+            Err(e) => println!("cargo::error=ZICAD_CJK_FONT: {e}"),
+        }
+    }
     src.push_str("];\n");
     let out = PathBuf::from(std::env::var_os("OUT_DIR").unwrap_or_default()).join("craft_fonts.rs");
     if let Err(e) = std::fs::write(&out, src) {

@@ -1,5 +1,6 @@
 //! Properties: per-object property edits, current properties, MATCHPROP, linetypes, units, RENAME.
 
+mod change;
 mod matchprop;
 mod rename;
 
@@ -16,6 +17,14 @@ use crate::{Result, Session};
 pub fn specs() -> Vec<CommandSpec> {
     vec![
         CommandSpec::new("properties", "Properties", run_get).menu(&["Modify", "Properties"]).alias(&["pr", "props", "ch"]).params("{handles?} → properties of the selection").noundo(),
+        CommandSpec::new("chprop", "Change Properties", run_set)
+            .menu(&["Modify", "Change Properties"])
+            .params("{handles?, layer?, color?, linetype?, lineweight?, ltscale?, transparency?}")
+            .interactive(|_| Ok(Box::new(change::ChangeProps::default()))),
+        CommandSpec::new("setbylayer", "Set ByLayer", run_setbylayer)
+            .menu(&["Modify", "Set ByLayer"])
+            .params("{handles?} → reset selected objects' color, linetype, lineweight and transparency; does not modify block definitions")
+            .interactive(|_| Ok(Box::new(super::machines::SelectRun::new("setbylayer", "SETBYLAYER")))),
         CommandSpec::new("properties.set", "Set Properties", run_set).params("{handles?, layer?, color?, linetype?, lineweight?, ltscale?, transparency?: \"ByLayer\" | \"ByBlock\" | 0..90, visible?, <geometry fields: radius, center, start, end, text, height, rotation…>}"),
         CommandSpec::new("matchprop", "Match Properties", matchprop::run_matchprop)
             .menu(&["Modify", "Match Properties"])
@@ -173,6 +182,12 @@ fn set_xy(p: &mut Vec3, v: &Value) {
         p.x = q.x;
         p.y = q.y;
     }
+}
+
+fn run_setbylayer(s: &mut Session, p: &Value) -> Result<Value> {
+    let hs = targets(s, p)?;
+    run_set(s, &json!({"handles": hs.iter().map(|h| h.hex()).collect::<Vec<_>>(),
+        "color": "ByLayer", "linetype": "ByLayer", "lineweight": "ByLayer", "transparency": "ByLayer"}))
 }
 
 fn run_set(s: &mut Session, p: &Value) -> Result<Value> {

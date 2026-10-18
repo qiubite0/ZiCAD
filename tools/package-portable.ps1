@@ -1,4 +1,4 @@
-<# Build a Windows x64 portable ZIP without copying user configuration. #>
+﻿<# Build a Windows x64 portable ZIP without copying user configuration. #>
 param(
     [string]$BuildRoot = (Split-Path -Parent $PSScriptRoot),
     [string]$OutputRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) 'dist/portable'),
@@ -7,6 +7,9 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 $SourceRoot = Split-Path -Parent $PSScriptRoot
+if (-not $env:ZICAD_CJK_FONT) { & (Join-Path $PSScriptRoot 'prepare-chinese-font.ps1') }
+$FontLicense = Join-Path (Split-Path -Parent $env:ZICAD_CJK_FONT) 'OFL.txt'
+if (-not (Test-Path -LiteralPath $FontLicense)) { throw 'Missing bundled Chinese font OFL.txt' }
 if (-not $SkipBuild) {
     Push-Location $BuildRoot
     try {
@@ -28,6 +31,7 @@ foreach ($NameOfFile in 'LICENSE-MIT','LICENSE-APACHE','NOTICE','ATTRIBUTION.md'
     Copy-Item -LiteralPath (Join-Path $SourceRoot $NameOfFile) -Destination $Stage
 }
 New-Item -ItemType Directory -Path (Join-Path $Stage 'examples'),(Join-Path $Stage 'licenses') | Out-Null
+Copy-Item -LiteralPath $FontLicense -Destination (Join-Path $Stage 'licenses/LXGWWenKai-OFL.txt')
 foreach ($Drawing in 'apartment-120-furnished.dxf','cleanroom-pro-demo.dxf','commercial-complex-demo.dxf') {
     Copy-Item -LiteralPath (Join-Path $SourceRoot "examples/$Drawing") -Destination (Join-Path $Stage 'examples')
 }

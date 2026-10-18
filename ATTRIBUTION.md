@@ -98,3 +98,11 @@ Generated-in-code assets are original and have no file to list:
 | `docs/images/zicad-apartment-ai-live.png` | ZiCAD 二次开发贡献者 | 用户提供的 ZiCAD 实际对话截图 | MIT OR Apache-2.0 | 原创户型演示，不含密钥 |
 | `docs/images/zicad-apartment-120-live.png` | ZiCAD 二次开发贡献者 | 本地网页实际截图 | MIT OR Apache-2.0 | 户型平面展示 |
 | `examples/apartment-120-furnished.dxf`、`apps/cadcraft-web/dev-host/apartment-120-furnished.dxf` | ZiCAD 二次开发贡献者 | `tools/generate_apartment_120.py` 原创生成 | MIT OR Apache-2.0 | 120 平方米外轮廓方案示意 |
+
+| Embedded via external ZICAD_CJK_FONT build input: LXGW WenKai Regular v1.530 | LXGW / Fontworks Klee contributors | https://github.com/lxgw/LxgwWenKai | SIL OFL 1.1; distribute original OFL.txt with binaries | Optional external build input; font bytes are not stored in this repository |
+
+| ZiCAD blue stacked Zi/CAD desktop icon (option 02), assets/app-icon/cadcraft*.png and .ico | ZiCAD contributor, AI-assisted original design selected by author | Local imagegen design based on ZiCAD identity | MIT OR Apache-2.0 | Application branding |
+| crates/ui-egui/assets/brand/creator-panda.png | AI 科技熊 / user-provided creator avatar | Supplied by the author for ZiCAD | Used with author authorization for project identity | Creator avatar |
+
+| docs/images/zicad-desktop-dwg-live.png, zicad-desktop-about.png | ZiCAD contributor | Actual desktop screenshots with synthetic example drawings | MIT OR Apache-2.0 | No API credentials included |
+| assets/app-icon/cadcraft.icns and hicolor icons | ZiCAD contributor | Derived from selected blue Zi/CAD option 02 | MIT OR Apache-2.0 | Unified platform branding |

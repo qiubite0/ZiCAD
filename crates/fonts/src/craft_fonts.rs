@@ -41,7 +41,7 @@ mod tests {
     #[test]
     fn empty_without_craft_fonts_dir() {
         // `build.rs` and `option_env!` see the same build environment.
-        if option_env!("CRAFT_FONTS_DIR").is_none_or(str::is_empty) {
+        if option_env!("CRAFT_FONTS_DIR").is_none_or(str::is_empty) && option_env!("ZICAD_CJK_FONT").is_none() {
             assert!(CRAFT_FONTS.is_empty());
             assert!(!is_embedded("bizudpgothic-regular"));
         }
@@ -55,10 +55,10 @@ mod tests {
 
     #[test]
     fn a_static_font_is_found_by_name_and_loaded_on_use() {
-        crate::ttf::register_static("cadcraftstatictest-regular", &TINY_SFNT);
+        crate::ttf::register_static("zicadstatictest-regular", &TINY_SFNT);
         let face = crate::ttf::find("ZiCAD Static Test").map(|f| f.bytes.as_slice().to_vec());
         assert_eq!(face.as_deref(), Some(&TINY_SFNT[..]));
-        assert!(crate::ttf::find("cadcraftstatictest-regular.ttf").is_some());
+        assert!(crate::ttf::find("zicadstatictest-regular.ttf").is_some());
         // It has no glyphs, so it is never a fallback face, and nothing panics.
         assert!(!crate::ttf::find("ZiCAD Static Test").is_some_and(|f| f.has_glyph('A')));
         let _ = crate::ttf::fallback_for('\u{65E5}');
@@ -91,6 +91,19 @@ mod tests {
         if CRAFT_FONTS.iter().any(|f| f.scripts.contains(&"Jpan")) {
             let sh = crate::shape_stroke("\u{65E5}\u{672C}", 1.0, 1.0, 0.0);
             assert_eq!(sh.glyphs.len(), 2, "Japanese drawn from a fallback font");
+        }
+    }
+}
+
+#[cfg(test)]
+mod zicad_cjk_tests {
+    #[test]
+    fn drawing_chinese_is_available_with_bundled_font() {
+        if option_env!("ZICAD_CJK_FONT").is_some() {
+            let face = crate::ttf::find("lxgwwenkai-regular").expect("bundled font");
+            for c in "建筑结构暖通给排水电气精装洁净室阀门泵風機繁體中文，。㎡".chars() {
+                assert!(face.has_glyph(c), "missing {c}");
+            }
         }
     }
 }

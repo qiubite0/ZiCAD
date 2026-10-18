@@ -9,6 +9,7 @@
 #![forbid(unsafe_code)]
 
 pub mod ai;
+pub mod brand;
 pub mod animation;
 pub mod autosave;
 pub mod bedit;

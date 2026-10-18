@@ -6,7 +6,6 @@ use egui::{RichText, vec2};
 use serde_json::json;
 
 use crate::CadApp;
-use crate::theme::Tokens;
 
 pub fn show(app: &mut CadApp, ctx: &egui::Context) {
     crate::mtext_editor::show(app, ctx);
@@ -299,12 +298,11 @@ fn units(app: &mut CadApp, ctx: &egui::Context, open: &mut bool) {
 }
 
 fn about(ctx: &egui::Context, open: &mut bool) {
-    let t = Tokens::get();
     let tab_id = egui::Id::new("about_tab");
     egui::Window::new(crate::tl!("About ZiCAD"))
         .id(egui::Id::new("About ZiCAD"))
         .open(open)
-        .default_size(vec2(640.0, 420.0))
+        .default_size(vec2(660.0, 680.0))
         .collapsible(false)
         .show(ctx, |ui| {
             let mut tab = ui.data_mut(|d| d.get_temp::<u8>(tab_id)).unwrap_or(0);
@@ -321,13 +319,8 @@ fn about(ctx: &egui::Context, open: &mut bool) {
                 1 => crate::credits::contributors_ui(ui),
                 2 => crate::credits::models_ui(ui),
                 _ => {
-                    ui.heading(crate::tl!("ZiCAD"));
-                    ui.label(crate::tf!("Version {version}", version = env!("CARGO_PKG_VERSION")));
-                    ui.label(crate::tl!("Computer-aided design and drafting: an open-source, clean-room CAD application written in pure Rust."));
-                    ui.add_space(6.0);
-                    ui.hyperlink_to("Based on CADCraft · MIT / Apache-2.0", "https://github.com/storytold/cadcraft");
-                    ui.add_space(6.0);
-                    ui.label(RichText::new(crate::tl!("MIT OR Apache-2.0. Not affiliated with Autodesk, Inc.")).small().color(t.text_faint));
+                    egui::ScrollArea::vertical().max_height(480.0).show(ui, crate::brand::about);
+                    crate::brand::creator_footer(ui);
                 }
             }
         });

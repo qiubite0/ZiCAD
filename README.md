@@ -197,6 +197,18 @@ ZiCAD 的二开重点是 AI 与工程工作流、中文交互和网页集成；�
 
 基于 [CADCraft](https://github.com/storytold/cadcraft) 二次开发，保留原项目版权和 [MIT](LICENSE-MIT) / [Apache-2.0](LICENSE-APACHE) 许可证。原生 DWG 依赖及其他许可信息见 [NOTICE](NOTICE)，Logo、字体与演示素材来源见 [ATTRIBUTION.md](ATTRIBUTION.md)。内部部分 crate、协议和存储键保留 `cadcraft` 名称以保持兼容。
 
+## Windows 免安装包
+
+桌面程序可打包为 ZIP，完整解压后运行 `ZiCAD.exe`。包内包含原生命令行工具、示例 DXF 和许可证；AI 使用用户自己的模型接口与 Key，桌面 DWG 导出不依赖网页服务。
+
+开发者可在 Windows x64 环境运行：
+
+```powershell
+./tools/package-portable.ps1 -RuntimeDir "<Visual Studio VC Redist 的 x64 CRT 目录>"
+```
+
+脚本编译发布版并生成 `dist/portable` 中的预览 ZIP。运行库目录应指向已安装 Visual Studio 的可再分发 CRT 文件夹；若省略，该包要求目标电脑已有相应 VC++ 运行库。包中不复制开发者配置或私人凭据，程序配置默认位于 `%APPDATA%\ZiCAD`。
+
 ## 本地构建与运行
 
 需要 Rust 1.95 或以上、Rust WASM 目标、Trunk 和 Python 3.10 或以上。Windows 还需要 MSVC 链接环境。首次构建可能下载依赖；推荐使用两个构建任务。

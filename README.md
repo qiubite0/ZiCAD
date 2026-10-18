@@ -19,9 +19,9 @@ ZiCAD 是面向工程绘图与交付的开源二维 CAD。提供 Windows 桌面�
 
 ### 大模型接口配置
 
-![大模型接口设置与连接测试](docs/images/zicad-model-settings-live.png)
+![新版桌面大模型接口配置](docs/images/zicad-model-settings-live.png)
 
-在 **AI → Settings** 中选择平台，填写同一服务商的接口端点、API Key 与模型名称，再点击“测试连接”或“拉取列表”。上图为 DeepSeek 实际连接测试，密钥以遮蔽形式显示。
+在 **AI → Settings** 中选择平台，填写同一服务商的接口端点、API Key 与模型名称，再点击“测试连接”或“拉取列表”。上图为新版桌面设置界面，未填写密钥；[历史连接测试](docs/history-ai-validation.md#连接测试)保留原始结果。
 
 | 配置 | 用途 |
 |---|---|
@@ -57,17 +57,17 @@ ZiCAD 是面向工程绘图与交付的开源二维 CAD。提供 Windows 桌面�
 
 对话、必要图纸上下文和附件会发送至所配置的模型服务，API Key 保存在浏览器本机设置中。模型与命令执行结果应按任务复核。
 
-![洁净室 AI 实际问答演示](docs/images/zicad-cleanroom-ai-live.png)
+![新版洁净室 AI 操作界面](docs/images/zicad-cleanroom-ai-live.png)
 
-**实测演示**：向已配置的 DeepSeek 提问，要求用四行说明 SA、RA、EXHAUST、PROCESS 图层用途。截图展示实际返回内容，此轮未执行图纸修改。
+新版桌面 AI 面板可直接输入图层解释与改图需求，配合当前图纸开展对话。上图展示输入界面；此前 DeepSeek 返回 SA、RA、EXHAUST、PROCESS 图层说明的[实际问答记录](docs/history-ai-validation.md#洁净室问答)单独保留。
 
 ### 户型图中的 AI 上下文问答
 
-![120㎡户型图中的 AI 实际对话](docs/images/zicad-apartment-ai-live.png)
+![新版 120㎡户型 AI 操作界面](docs/images/zicad-apartment-ai-live.png)
 
 在三室两厅两卫的精装平面方案中，DeepSeek 根据当前图纸的上下文说明可用绘图操作，并返回文件名、**373 个实体、10 个图层**及图纸坐标范围等信息。用户可继续提出房间文字、家具轮廓或指定坐标处的绘图需求，由命令核心承接后续操作。
 
-这张截图展示的是实际问答与上下文识别，没有执行家具调整或图纸修改。模型接收到的是实体统计、图层等概要信息；精确定位仍需坐标、尺寸或参考图片。
+上图展示新版桌面中的户型 AI 输入界面，未发送模型请求；[历史实际问答](docs/history-ai-validation.md#户型问答)保留原始返回。模型接收到的是实体统计、图层等概要信息；精确定位仍需坐标、尺寸或参考图片。
 
 底图按 **12×10 米外轮廓约 120㎡**布置，包含三间卧室、客餐厅、双卫、厨房、玄关和洗衣阳台，以及门窗、家具、厨卫洁具与尺寸文字，可继续在 CAD 中编辑。
 
@@ -164,7 +164,7 @@ Windows 桌面版支持 **直接打开 DWG → 编辑 → 保存 DWG → 重新�
 
 ![洁净室图框识别与 PDF 导出](docs/images/zicad-cleanroom-pdf-live.png)
 
-**实测演示**：识别洁净室底图的闭合外框，选中后导出单页 PDF。图框与图签字段仍需复核；多图框图纸可勾选多页合并输出。
+上图为新版桌面图框候选识别界面，已识别并勾选洁净室底图外框。可按选中图框导出单页或合并多页 PDF，图框与图签字段仍需复核。
 
 ### DWG：连接编辑与工程交付
 
@@ -181,7 +181,7 @@ Windows 桌面版支持 **直接打开 DWG → 编辑 → 保存 DWG → 重新�
 
 ![洁净室 DWG 实际导出结果](docs/images/zicad-cleanroom-export-result.png)
 
-**实测演示**：从网页导出洁净室 DWG；同一转换服务生成的 2018 示例文件已读回验证，共 600 个实体、跳过记录为 0。
+上图为新版桌面的导出入口与 DWG 保存读回界面；本次桌面交付示例读回 **600 个实体**。此前网页版 2018 示例文件也已读回验证，见[历史网页导出记录](docs/history-ai-validation.md#网页-dwg-导出)。
 
 [下载 DWG 导出示例](docs/demo/cleanroom-pro-demo.dwg) · [查看对应 DXF](examples/cleanroom-pro-demo.dxf) · [查看导出菜单截图](docs/images/zicad-cleanroom-dwg-live.png)
 

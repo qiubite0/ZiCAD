@@ -106,3 +106,6 @@ Generated-in-code assets are original and have no file to list:
 
 | docs/images/zicad-desktop-dwg-live.png, zicad-desktop-about.png | ZiCAD contributor | Actual desktop screenshots with synthetic example drawings | MIT OR Apache-2.0 | No API credentials included |
 | assets/app-icon/cadcraft.icns and hicolor icons | ZiCAD contributor | Derived from selected blue Zi/CAD option 02 | MIT OR Apache-2.0 | Unified platform branding |
+
+| Updated product screenshots in docs/images: zicad-model-settings-live.png, zicad-overseas-presets-live.png, zicad-cleanroom-ai-live.png, zicad-apartment-ai-live.png, zicad-cleanroom-pro-live.png, zicad-commercial-live.png, zicad-cleanroom-pdf-live.png, zicad-cleanroom-dwg-live.png, zicad-cleanroom-export-result.png and zicad-apartment-120-live.png | ZiCAD contributor | Actual current desktop UI, synthetic project examples, no credentials | MIT OR Apache-2.0 | Unified large ZiCAD logo and toolbar |
+| docs/images/history/*.png | Original ZiCAD screenshot contributors | Preserved original connection, conversation and export records | Same authorization as original screenshots | Historical validation, not current UI |

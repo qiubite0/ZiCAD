@@ -9,14 +9,12 @@
 #![forbid(unsafe_code)]
 
 pub mod ai;
-pub mod brand;
 pub mod animation;
 pub mod autosave;
 pub mod bedit;
+pub mod brand;
 pub mod canvas;
 pub mod chrome;
-pub mod frames;
-pub mod sheets;
 pub mod clipboard;
 pub mod closing;
 pub mod cmdline;
@@ -26,8 +24,10 @@ pub mod credits;
 pub mod dialogs;
 pub mod docking;
 pub mod dwg_export;
+pub mod frames;
 pub mod hatchdlg;
 mod mtext_editor;
+pub mod sheets;
 pub mod spacemouse;
 // The External References palette.
 pub mod xrefs;
@@ -191,6 +191,7 @@ impl Default for UiState {
 /// Host services (file pickers, clipboard) injected by the app so this crate stays portable.
 #[derive(Default)]
 pub struct Services {
+    pub pick_lisp: Option<Box<dyn Fn() -> Option<String>>>,
     pub pick_open: Option<Box<dyn Fn() -> Option<String>>>,
     pub pick_save: Option<Box<dyn Fn(&str) -> Option<String>>>,
 }
@@ -478,11 +479,7 @@ impl CadApp {
     /// Why a `len`-byte file called `name` is too large for [`Self::open_bytes`], if it is.
     pub fn open_size_error(name: &str, len: u64) -> Option<String> {
         (len > Self::MAX_OPEN_BYTES).then(|| {
-            format!(
-                "Open: {name} is {:.1} MB, larger than the {} MB ZiCAD opens in the browser",
-                len as f64 / 1048576.0,
-                Self::MAX_OPEN_BYTES >> 20
-            )
+            format!("Open: {name} is {:.1} MB, larger than the {} MB ZiCAD opens in the browser", len as f64 / 1048576.0, Self::MAX_OPEN_BYTES >> 20)
         })
     }
 

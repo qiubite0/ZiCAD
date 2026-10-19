@@ -128,6 +128,13 @@ pub fn install_io() {
 
 fn services() -> Services {
     Services {
+        pick_lisp: Some(Box::new(|| {
+            rfd::FileDialog::new()
+                .set_title("ZiCAD - LSP / APPLOAD")
+                .add_filter("AutoLISP (*.lsp)", &["lsp"])
+                .pick_file()
+                .map(|p| p.to_string_lossy().to_string())
+        })),
         pick_open: Some(Box::new(|| {
             rfd::FileDialog::new()
                 .add_filter(i18n::t("Drawings (DWG, DXF)"), &["dwg", "dxf", "dwt"])

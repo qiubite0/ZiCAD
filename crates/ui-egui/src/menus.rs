@@ -50,12 +50,12 @@ pub const UI_COMMANDS: &[(&str, &str, &[&str], Option<&str>)] = &[
     ("ui.saveformat.dxf", "DXF", &["File", "Default Save Format", "DXF"], None),
     ("ui.saveformat.dwg", "DWG", &["File", "Default Save Format", "DWG"], None),
     ("ui.saveformat", "Default Save Format", &[], None),
-    ("ui.saveversion.2018", "Version 2018", &["File", "Default Save Format", "Version 2018"], None),
-    ("ui.saveversion.2013", "Version 2013", &["File", "Default Save Format", "Version 2013"], None),
-    ("ui.saveversion.2010", "Version 2010", &["File", "Default Save Format", "Version 2010"], None),
-    ("ui.saveversion.2007", "Version 2007", &["File", "Default Save Format", "Version 2007"], None),
-    ("ui.saveversion.2004", "Version 2004", &["File", "Default Save Format", "Version 2004"], None),
-    ("ui.saveversion.2000", "Version 2000", &["File", "Default Save Format", "Version 2000"], None),
+    ("ui.saveversion.2018", "AutoCAD 2018–2026", &["File", "Default Save Format", "AutoCAD 2018–2026"], None),
+    ("ui.saveversion.2013", "AutoCAD 2013–2017", &["File", "Default Save Format", "AutoCAD 2013–2017"], None),
+    ("ui.saveversion.2010", "AutoCAD 2010–2012", &["File", "Default Save Format", "AutoCAD 2010–2012"], None),
+    ("ui.saveversion.2007", "AutoCAD 2007–2009", &["File", "Default Save Format", "AutoCAD 2007–2009"], None),
+    ("ui.saveversion.2004", "AutoCAD 2004–2006", &["File", "Default Save Format", "AutoCAD 2004–2006"], None),
+    ("ui.saveversion.2000", "AutoCAD 2000–2003", &["File", "Default Save Format", "AutoCAD 2000–2003"], None),
     ("ui.saveversion", "Default Save Version", &[], None),
     ("ui.toggle.menubar", "In-window Menu Bar", &["Window", "In-window Menu Bar"], None),
     ("ui.hidepalettes", "Hide Palettes", &["Window", "Hide Palettes"], None),
@@ -134,6 +134,12 @@ fn run_ui_command_inner(app: &mut CadApp, id: &str, params: &Value) -> Option<Re
         return Some(Ok(Value::Null));
     }
     let r = match id {
+        "ap" | "appload" if no_path && app.services.pick_lisp.is_some() => {
+            if let Some(path) = app.services.pick_lisp.as_ref().and_then(|pick| pick()) {
+                app.open_path(&path);
+            }
+            Ok(Value::Null)
+        }
         "ui.export.dwg" => crate::dwg_export::start(app, params),
         "ui.language" => {
             let Some(preference) = params.get("lang").and_then(Value::as_str).and_then(crate::i18n::Preference::parse) else {
@@ -692,6 +698,24 @@ mod tests {
 
     use crate::{CadApp, Services};
 
+    #[test]
+    fn ap_picker_loads_lisp() {
+        let path = std::env::temp_dir().join(format!("zicad-ap-{}.lsp", std::process::id()));
+        std::fs::write(&path, "(setq zicad_ap_loaded 42)").unwrap();
+        let picked = path.to_string_lossy().to_string();
+        let mut app = CadApp::new(Session::new(), Services {
+            pick_lisp: Some(Box::new(move || Some(picked.clone()))),
+            ..Services::default()
+        });
+        assert!(super::run_ui_command(&mut app, "ap", &Value::Null).unwrap().is_ok());
+        let result = app.session.execute("lisp", &json!({"code": "zicad_ap_loaded"})).unwrap();
+        assert_eq!(result["value"], "42");
+        app.services.pick_lisp = Some(Box::new(|| None));
+        assert!(super::run_ui_command(&mut app, "appload", &Value::Null).unwrap().is_ok());
+        assert!(super::run_ui_command(&mut app, "appload", &json!({"text":"(princ)"})).is_none());
+        let _ = std::fs::remove_file(path);
+    }
+
     fn fake_plot(_: &cadcraft_doc::Drawing, _: &cadcraft_doc::Space, _: &Value) -> Result<Vec<u8>, String> {
         Ok(b"%PDF-1.4 test".to_vec())
     }
@@ -701,6 +725,7 @@ mod tests {
         let asked = Rc::new(RefCell::new(Vec::new()));
         let log = Rc::clone(&asked);
         let services = Services {
+            pick_lisp: None,
             pick_open: None,
             pick_save: Some(Box::new(move |name: &str| {
                 log.borrow_mut().push(name.to_string());

@@ -51,7 +51,18 @@ impl Version {
     pub fn parse(s: &str) -> Option<Version> {
         let s = s.trim();
         let year = s.strip_prefix(['R', 'r']).unwrap_or(s);
-        Version::ALL.into_iter().find(|v| v.year() == year || v.code().eq_ignore_ascii_case(s))
+        if let Ok(year) = year.parse::<u16>() {
+            return match year {
+                2000..=2003 => Some(Self::R2000),
+                2004..=2006 => Some(Self::R2004),
+                2007..=2009 => Some(Self::R2007),
+                2010..=2012 => Some(Self::R2010),
+                2013..=2017 => Some(Self::R2013),
+                2018..=2026 => Some(Self::R2018),
+                _ => None,
+            };
+        }
+        Version::ALL.into_iter().find(|v| v.code().eq_ignore_ascii_case(s))
     }
 
     /// The version to save a file of `$ACADVER` `code` in: the same version when ZiCAD writes
@@ -96,7 +107,12 @@ mod tests {
         assert_eq!(Version::parse("2018"), Some(Version::R2018));
         assert_eq!(Version::parse(" r2004 "), Some(Version::R2004));
         assert_eq!(Version::parse("ac1021"), Some(Version::R2007));
-        assert_eq!(Version::parse("2005"), None);
+        assert_eq!(Version::parse("2005"), Some(Version::R2004));
+        for year in 2000..=2026 {
+            assert!(Version::parse(&year.to_string()).is_some());
+        }
+        assert_eq!(Version::parse("2026"), Some(Version::R2018));
+        assert_eq!(Version::parse("2027"), None);
         assert_eq!(Version::parse(""), None);
         for v in Version::ALL {
             assert_eq!(Version::parse(v.code()), Some(v));

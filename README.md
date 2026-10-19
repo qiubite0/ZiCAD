@@ -3,6 +3,12 @@
 <h1 align="center">ZiCAD</h1>
 <p align="center"><strong>轻量二维 CAD · AI 辅助 · 工程出图</strong></p>
 <p align="center">
+  <a href="https://github.com/qiubite0/ZiCAD/releases/download/v0.7.0-preview.20261019/ZiCAD-0.7.0-preview-windows-x64-portable.zip"><strong>下载 Windows ZIP（推荐）</strong></a> ·
+  <a href="https://github.com/qiubite0/ZiCAD/releases/download/v0.7.0-preview.20261019/ZiCAD.exe">下载 EXE</a> ·
+  <a href="https://github.com/qiubite0/ZiCAD/releases/tag/v0.7.0-preview.20261019">版本说明与校验</a>
+</p>
+
+<p align="center">
   <a href="#ai-辅助与模型接入">AI 辅助</a> ·
   <a href="#工程案例">工程案例</a> ·
   <a href="#核心功能">核心功能</a> ·
@@ -223,7 +229,9 @@ ZiCAD 的二开重点是 AI 与工程工作流、中文交互和网页集成；�
 
 ## Windows 免安装包
 
-桌面程序可打包为 ZIP，完整解压后运行 `ZiCAD.exe`。包内包含原生命令行工具、示例 DXF 和许可证；AI 使用用户自己的模型接口与 Key，桌面 DWG 打开与保存不依赖网页服务。
+已发布 **Windows x64 开发预览版**：[下载 ZIP（推荐）](https://github.com/qiubite0/ZiCAD/releases/download/v0.7.0-preview.20261019/ZiCAD-0.7.0-preview-windows-x64-portable.zip) · [单独下载 EXE](https://github.com/qiubite0/ZiCAD/releases/download/v0.7.0-preview.20261019/ZiCAD.exe) · [版本说明与 SHA256 校验](https://github.com/qiubite0/ZiCAD/releases/tag/v0.7.0-preview.20261019)。
+
+ZIP 完整解压后运行 `ZiCAD.exe`，包内包含原生命令行工具、VC++ 运行库、示例 DXF 和许可证；单独 EXE 需要目标电脑已有所需 VC++ 运行库。AI 使用用户自己的模型接口与 Key，桌面 DWG 打开与保存不依赖网页服务。
 
 开发者可在 Windows x64 环境运行：
 
